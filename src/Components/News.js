@@ -7,12 +7,14 @@ import PropTypes from 'prop-types'
 export default class News extends Component {
     static defaultProps = {
         country: "in",
-        pageSize: 10
+        pageSize: 10,
+        category: "general"
     }   
 
     static propTypes = {
         country: PropTypes.string,
-        pageSize: PropTypes.number
+        pageSize: PropTypes.number,
+        category: PropTypes.string,
     }
 
     constructor() {
@@ -26,7 +28,8 @@ export default class News extends Component {
     }
 
     async componentDidMount() {
-        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=961bc7b9faa44191a5f3844566f39cc4&page=1&pageSize=${this.props.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&
+&apiKey=961bc7b9faa44191a5f3844566f39cc4&page=1&pageSize=${this.props.pageSize}`;
         this.setState({ loading: true });
         let data = await fetch(url);
         let parsedData = await data.json();
@@ -41,7 +44,8 @@ export default class News extends Component {
 
     handlePreviousClick = async () => {
         console.log("ands")
-        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=961bc7b9faa44191a5f3844566f39cc4&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&
+&apiKey=961bc7b9faa44191a5f3844566f39cc4&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
         this.setState({ loading: true });
         let data = await fetch(url);
         let parsedData = await data.json();
@@ -59,7 +63,8 @@ export default class News extends Component {
             return;
         }
 
-        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=961bc7b9faa44191a5f3844566f39cc4&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&
+&apiKey=961bc7b9faa44191a5f3844566f39cc4&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
         this.setState({ loading: true });
         let data = await fetch(url);
         let parsedData = await data.json();
@@ -75,7 +80,7 @@ export default class News extends Component {
         return (
             <div>
                 <div className="container my-3">
-                    <h1 className='text-center'>Khabar - Top Headlines</h1>
+                    <h1 className='text-center' style={{margin: '35px 0px'}}>Khabar - Top Headlines</h1>
                     {this.state.loading && <Spinner></Spinner>}
                     <div className="row">
                         {!this.state.loading && this.state.articles.map((element) => {
