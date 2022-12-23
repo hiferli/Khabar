@@ -1,8 +1,20 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner';
+import PropTypes from 'prop-types'
+
 
 export default class News extends Component {
+    static defaultProps = {
+        country: "in",
+        pageSize: 10
+    }   
+
+    static propTypes = {
+        country: PropTypes.string,
+        pageSize: PropTypes.number
+    }
+
     constructor() {
         super();
         console.log("Hello World");
@@ -14,7 +26,7 @@ export default class News extends Component {
     }
 
     async componentDidMount() {
-        const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=961bc7b9faa44191a5f3844566f39cc4&page=1&pageSize=${this.props.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=961bc7b9faa44191a5f3844566f39cc4&page=1&pageSize=${this.props.pageSize}`;
         this.setState({ loading: true });
         let data = await fetch(url);
         let parsedData = await data.json();
@@ -29,7 +41,7 @@ export default class News extends Component {
 
     handlePreviousClick = async () => {
         console.log("ands")
-        const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=961bc7b9faa44191a5f3844566f39cc4&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=961bc7b9faa44191a5f3844566f39cc4&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
         this.setState({ loading: true });
         let data = await fetch(url);
         let parsedData = await data.json();
@@ -47,7 +59,7 @@ export default class News extends Component {
             return;
         }
 
-        const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=961bc7b9faa44191a5f3844566f39cc4&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=961bc7b9faa44191a5f3844566f39cc4&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
         this.setState({ loading: true });
         let data = await fetch(url);
         let parsedData = await data.json();
