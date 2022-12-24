@@ -19,7 +19,7 @@ export default class News extends Component {
 
     constructor() {
         super();
-        console.log("Hello World");
+        // console.log("Hello World");
         this.state = {
             articles: [],
             page: 1,
@@ -43,7 +43,7 @@ export default class News extends Component {
     }
 
     handlePreviousClick = async () => {
-        console.log("ands")
+        // console.log("ands")
         const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&
 &apiKey=961bc7b9faa44191a5f3844566f39cc4&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
         this.setState({ loading: true });
