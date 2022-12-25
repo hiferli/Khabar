@@ -4,13 +4,9 @@ import React, { Component } from 'react'
 import NavBar from './Components/NavBar';
 import News from './Components/News';
 import {
-  createBrowserRouter,
   BrowserRouter as Router,
-  Switch,
   Route,
   Routes,
-  Link,
-  RouterProvider,
 } from "react-router-dom";
 import "./index.css";
 import LoadingBar from 'react-top-loading-bar'
