@@ -10,11 +10,10 @@ const News = (props) => {
     const [page, setPage] = useState(1)
     const [totalResults, setTotalResults] = useState(0)
 
-    // document.title = `${(props.category).charAt(0).toUpperCase() + (props.category).slice(1)} - Khabar`
-
+    
     const updateNews = async () => {
         props.setProgress(10);
-
+        
         const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&
         &apiKey=961bc7b9faa44191a5f3844566f39cc4&page=${page}&pageSize=${props.pageSize}`;
         setLoading(true);
@@ -26,15 +25,16 @@ const News = (props) => {
         setArticles(parsedData.articles);
         setTotalResults(parsedData.totalResults);
         setLoading(false);
-
+        
         props.setProgress(100);
     }
-
+    
     useEffect(() => {
+        document.title = `${(props.category).charAt(0).toUpperCase() + (props.category).slice(1)} - Khabar`
         updateNews();
         // eslint-disable-next-line no-use-before-define
     }, [])
-
+    
     const handlePreviousClick = async () => {
         setPage(page - 1);
         updateNews();
