@@ -32,6 +32,7 @@ const News = (props) => {
 
     useEffect(() => {
         updateNews();
+        // eslint-disable-next-line no-use-before-define
     }, [])
 
     const handlePreviousClick = async () => {
@@ -45,11 +46,12 @@ const News = (props) => {
     }
     
     const fetchMoreData = async () => {
-        setPage(page + 1);
         // updateNews();
-
+        
         const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&
-        &apiKey=961bc7b9faa44191a5f3844566f39cc4&page=${page}&pageSize=${props.pageSize}`;
+        &apiKey=961bc7b9faa44191a5f3844566f39cc4&page=${page + 1}&pageSize=${props.pageSize}`;
+        setPage(page + 1);
+
         let data = await fetch(url);
         let parsedData = await data.json();
         setArticles(articles.concat(parsedData.articles));
